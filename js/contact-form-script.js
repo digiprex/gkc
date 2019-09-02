@@ -18,25 +18,39 @@ function submitForm(){
     var msg_subject = $("#msg_subject").val();
     var message = $("#message").val();
 
-
     $.ajax({
-        type: "POST",
-        url: "php/form-process.php",
-        data: "name=" + name + "&email=" + email + "&msg_subject=" + msg_subject + "&message=" + message,
-        success : function(text){
-            if (text == "success"){
-                formSuccess();
-            } else {
-                formError();
-                submitMSG(false,text);
-            }
+        url: 'https://api.slapform.com/nirbhay.sindhi11@gmail.com', /* replace 'your@email.com' with your email */
+        dataType: "json",
+        type: 'POST',
+        data: {
+          name: name,
+          email: email,
+          subject: msg_subject,
+          message: message
+        },
+        success: function (response) {
+            formSuccess();
         }
-    });
+      });
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "php/form-process.php",
+    //     data: "name=" + name + "&email=" + email + "&msg_subject=" + msg_subject + "&message=" + message,
+    //     success : function(text){
+    //         if (text == "success"){
+    //             formSuccess();
+    //         } else {
+    //             formError();
+    //             submitMSG(false,text);
+    //         }
+    //     }
+    // });
 }
 
 function formSuccess(){
     $("#contactForm")[0].reset();
-    submitMSG(true, "Message Submitted!")
+    submitMSG(true, "Hang in there. Someone will reach out to you soon!")
 }
 
 function formError(){
